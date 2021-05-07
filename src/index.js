@@ -11,6 +11,15 @@ app.use(express.json());
 const users = [];
 
 function checksExistsUserAccount(request, response, next) {
+  const { username } = request.headers
+  const hasAccount = users.some(user => user.username === username)
+  if(!hasAccount) {
+    response.status(404).json({
+      error: 'Usuário inexistente'
+    })
+  }
+  request.username = username
+  next()
 }
 
 app.post('/users', (request, response) => {
