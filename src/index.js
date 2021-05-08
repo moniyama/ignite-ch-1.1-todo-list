@@ -30,8 +30,15 @@ app.post('/users', (request, response) => {
     username,
     todos: []
   }
+  const hasUser = users.some(user => user.username === username)
+  if(hasUser) {
+    return response.status(400).json({
+      error: 'Mensagem do erro'
+    })
+  }
+
   users.push(newUser)
-  response.json(newUser)
+  response.status(201).json(newUser)
 });
 
 app.get('/todos', checksExistsUserAccount, (request, response) => {
