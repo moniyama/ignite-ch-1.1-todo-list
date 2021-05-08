@@ -13,7 +13,7 @@ const users = [];
 function checksExistsUserAccount(request, response, next) {
   const { username } = request.headers
   const hasAccount = users.some(user => user.username === username)
-  if(!hasAccount) {
+  if (!hasAccount) {
     response.status(404).json({
       error: 'Usuário inexistente'
     })
@@ -35,7 +35,8 @@ app.post('/users', (request, response) => {
 });
 
 app.get('/todos', checksExistsUserAccount, (request, response) => {
-  // Complete aqui
+  const todos = users.find(user => user.username === request.username).todos
+  response.json(todos)
 });
 
 app.post('/todos', checksExistsUserAccount, (request, response) => {
