@@ -67,9 +67,14 @@ app.put('/todos/:id', checksExistsUserAccount, (request, response) => {
   const { id } = request.params
 
   const todo = user.todos.find(todo => todo.id === id)
+  if (!todo) {
+    response.status(404).json({
+      error: 'Mensagem do erro'
+    })
+  }
   todo.title = title || todo.title
   todo.deadline = new Date(deadline) || todo.deadline
-  
+
   return response.status(201).json(todo)
 });
 
@@ -78,6 +83,11 @@ app.patch('/todos/:id/done', checksExistsUserAccount, (request, response) => {
   const { id } = request.params
 
   const todo = user.todos.find(todo => todo.id === id)
+  if (!todo) {
+    response.status(404).json({
+      error: 'Mensagem do erro'
+    })
+  }
   todo.done = !todo.done
   return response.status(201).json(todo)
 });
@@ -87,6 +97,11 @@ app.delete('/todos/:id', checksExistsUserAccount, (request, response) => {
   const { id } = request.params
 
   const todo = user.todos.find(todo => todo.id === id)
+  if (!todo) {
+    response.status(404).json({
+      error: 'Mensagem do erro'
+    })
+  }
   const index = user.todos.indexOf(todo)
   user.todos.splice(index)
   return response.status(204)
