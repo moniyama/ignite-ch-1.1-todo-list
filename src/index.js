@@ -60,12 +60,26 @@ app.post('/todos', checksExistsUserAccount, (request, response) => {
       user.todos = [...user.todos, newTodo]
     }
   })
-  const user = users.find(user => user.username === request.username)
-  response.status(201).json(user.todos)
+  response.status(201).json(newTodo)
 });
 
 app.put('/todos/:id', checksExistsUserAccount, (request, response) => {
-  // Complete aqui
+  const { title, deadline } = request.body
+  const { id } = request.params
+
+  let post = {}
+  users.forEach(user => {
+    user.todos.forEach(todo => {
+      if (todo.id === id) {
+        todo.title = title || todo.title
+        todo.deadline = new Date(deadline) || todo.deadline
+      }
+      post.title = todo.title
+      post.deadline = todo.deadline
+      post.done = todo.done
+    })
+  })
+  response.status(201).json(post)
 });
 
 app.patch('/todos/:id/done', checksExistsUserAccount, (request, response) => {
