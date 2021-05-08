@@ -83,7 +83,13 @@ app.patch('/todos/:id/done', checksExistsUserAccount, (request, response) => {
 });
 
 app.delete('/todos/:id', checksExistsUserAccount, (request, response) => {
-  // Complete aqui
+  const user = request.user
+  const { id } = request.params
+
+  const todo = user.todos.find(todo => todo.id === id)
+  const index = user.todos.indexOf(todo)
+  user.todos.splice(index)
+  return response.status(204)
 });
 
 module.exports = app;
