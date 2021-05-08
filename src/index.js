@@ -31,7 +31,7 @@ app.post('/users', (request, response) => {
     todos: []
   }
   const hasUser = users.some(user => user.username === username)
-  if(hasUser) {
+  if (hasUser) {
     return response.status(400).json({
       error: 'Mensagem do erro'
     })
@@ -47,7 +47,21 @@ app.get('/todos', checksExistsUserAccount, (request, response) => {
 });
 
 app.post('/todos', checksExistsUserAccount, (request, response) => {
-  // Complete aqui
+  const { title, deadline } = request.body
+  const newTodo = {
+    id: uuidv4(),
+    title,
+    done: false,
+    deadline: new Date(deadline),
+    created_at: new Date()
+  }
+  users.forEach(user => {
+    if (user.username === request.username) {
+      user.todos = [...user.todos, newTodo]
+    }
+  })
+  const user = users.find(user => user.username === request.username)
+  response.status(201).json(user.todos)
 });
 
 app.put('/todos/:id', checksExistsUserAccount, (request, response) => {
