@@ -83,7 +83,18 @@ app.put('/todos/:id', checksExistsUserAccount, (request, response) => {
 });
 
 app.patch('/todos/:id/done', checksExistsUserAccount, (request, response) => {
-  // Complete aqui
+  const { id } = request.params
+
+  let post = {}
+  users.forEach(user => {
+    user.todos.forEach(todo => {
+      if (todo.id === id) {
+        todo.done = !todo.done
+      }
+      post = todo
+    })
+  })
+  response.status(201).json(post)
 });
 
 app.delete('/todos/:id', checksExistsUserAccount, (request, response) => {
