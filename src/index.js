@@ -103,8 +103,8 @@ app.delete('/todos/:id', checksExistsUserAccount, (request, response) => {
     })
   }
   const index = user.todos.indexOf(todo)
-  user.todos.splice(index)
-  return response.status(204)
+  const result = user.todos.splice(index)
+  return response.status(204).json(result)
 });
 
 module.exports = app;
