@@ -1,6 +1,6 @@
 # TODO LIST
 
-## Projeto
+## Projeto Desafio
 
 [Desafio proposto](https://www.notion.so/Desafio-01-Conceitos-do-Node-js-59ccb235aecd43a6a06bf09a24e7ede8#76d07268a2954e8583aba55f72ef587f)
 
@@ -14,9 +14,9 @@
 
 ### Rotas de aplicação
 
-- [ ] POST `/users`
-- [ ] GET `/todos`
-- [ ] POST `/todos`
-- [ ] PUT `/todos/:id`
-- [ ] PATCH `/todos/:id/done`
-- [ ] DELETE `/todos/:id`
+- [x] POST `/users`
+- [x] GET `/todos`
+- [x] POST `/todos`
+- [x] PUT `/todos/:id`
+- [x] PATCH `/todos/:id/done`
+- [x] DELETE `/todos/:id`
